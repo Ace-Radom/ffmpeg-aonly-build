@@ -77,7 +77,6 @@ FFMPEG_CONFIGURE_FLAGS=(
     --enable-filter=$ENABLE_FILTER
     --enable-parser=$ENABLE_PARSER
     --cc=/usr/bin/clang
-    --prefix=$BASE_DIR/$OUTPUT_DIR
     --enable-cross-compile
     --target-os=darwin
     --arch=$ARCH
@@ -87,7 +86,7 @@ FFMPEG_CONFIGURE_FLAGS=(
 )
 # prepare configure flags
 
-FFMPEG_BUILD_DIR=$(mktemp -d -p $BUILD_DIR ffmpeg-build.XXXXXXXX)
+FFMPEG_BUILD_DIR=$(mktemp -d $BUILD_DIR/ffmpeg-build.XXXXXXXX)
 trap 'rm -rf $FFMPEG_BUILD_DIR' EXIT
 cd $FFMPEG_BUILD_DIR
 tar --strip-components=1 -xf $FFMPEG_TARBALL
@@ -95,4 +94,4 @@ tar --strip-components=1 -xf $FFMPEG_TARBALL
 perl -pi -e 's{HAVE_MACH_MACH_TIME_H 1}{HAVE_MACH_MACH_TIME_H 0}' config.h
 make V=1
 make install
-chown -R $(stat -c '%u:%g' $BASE_DIR) $OUTPUT_DIR
+chown -R $(stat -f '%u:%g' $BASE_DIR) $OUTPUT_DIR
