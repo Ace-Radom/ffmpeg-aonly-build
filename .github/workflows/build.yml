@@ -62,3 +62,29 @@ jobs:
         with:
           name: ffmpeg-windows-${{ env.ARCH }}
           path: build/artifacts/
+
+  macos-pkg:
+    runs-on: macos-latest
+    strategy:
+      matrix:
+        target:
+          - x86_64-apple-macos10.12
+          - arm64-apple-macos11
+        # See: https://developer.apple.com/documentation/apple-silicon/building-a-universal-macos-binary#Update-the-Architecture-List-of-Custom-Makefiles
+
+    env:
+      TARGET: ${{ matrix.target }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Install dependencies
+        run: |
+          brew install yasm
+      - name: Build
+        run: ./build_macos.sh
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ffmpeg-windows-${{ env.TARGET }}
+          path: build/artifacts/
