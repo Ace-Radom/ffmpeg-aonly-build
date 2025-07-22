@@ -120,14 +120,15 @@ esac
 # prepare arch configure flags
 
 FFMPEG_BUILD_DIR=$(mktemp -d -p $BUILD_DIR ffmpeg-build.XXXXXXXX)
-trap 'rm -rf $BUILD_DIR' EXIT
+trap 'rm -rf $FFMPEG_BUILD_DIR' EXIT
 cd $FFMPEG_BUILD_DIR
 tar --strip-components=1 -xf $FFMPEG_TARBALL
 ./configure "${FFMPEG_CONFIGURE_FLAGS[@]}" || exit 1
 make
 make install
+chown $(stat -c '%u:%g' $BASE_DIR) -R $OUTPUT_DIR
 # build
 
-cd $ARTIFACTS_DIR
-tar -czf ffmpeg_${ARCH}_linux.tar.gz $(basename $OUTPUT_DIR)
-chown $(stat -c '%u:%g' $BASE_DIR) ffmpeg_${ARCH}_linux.tar.gz
+# cd $ARTIFACTS_DIR
+# tar -czf ffmpeg_${ARCH}_linux.tar.gz $(basename $OUTPUT_DIR)
+# chown $(stat -c '%u:%g' $BASE_DIR) ffmpeg_${ARCH}_linux.tar.gz
