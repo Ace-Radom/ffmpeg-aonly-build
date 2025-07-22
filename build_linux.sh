@@ -128,7 +128,3 @@ make
 make install
 chown $(stat -c '%u:%g' $BASE_DIR) -R $OUTPUT_DIR
 # build
-
-# cd $ARTIFACTS_DIR
-# tar -czf ffmpeg_${ARCH}_linux.tar.gz $(basename $OUTPUT_DIR)
-# chown $(stat -c '%u:%g' $BASE_DIR) ffmpeg_${ARCH}_linux.tar.gz
