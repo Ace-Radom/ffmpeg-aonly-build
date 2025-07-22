@@ -26,7 +26,7 @@ jobs:
           sudo apt-get update -y
           sudo apt-get install -y gcc-aarch64-linux-gnu
       - name: Build
-        run: ./build-linux.sh
+        run: ./build_linux.sh
       - name: Archive production artifacts
         uses: actions/upload-artifact@v4
         with:
