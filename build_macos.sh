@@ -95,4 +95,4 @@ tar --strip-components=1 -xf $FFMPEG_TARBALL
 perl -pi -e 's{HAVE_MACH_MACH_TIME_H 1}{HAVE_MACH_MACH_TIME_H 0}' config.h
 make V=1
 make install
-chown $(stat -c '%u:%g' $BASE_DIR) -R $OUTPUT_DIR
+chown -R $(stat -c '%u:%g' $BASE_DIR) $OUTPUT_DIR
