@@ -33,7 +33,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ffmpeg-linux-${{ env.ARCH }}
-          path: build/artifacts/
+          path: build/artifacts/$ffmpeg_${{ env.ARCH }}_linux.tar.gz
 
   win64-pkg:
     runs-on: ubuntu-latest
@@ -61,4 +61,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ffmpeg-linux-${{ env.ARCH }}
-          path: build/artifacts/
+          path: build/artifacts/ffmpeg_${{ env.ARCH }}_win64.tar.gz

@@ -19,8 +19,9 @@ fi
 # prepare build dir
 
 FFMPEG_VERSION=7.1.1
-FFMPEG_TARBALL=$BASE_DIR/ffmpeg-$FFMPEG_VERSION.tar.gz
-FFMPEG_TARBALL_URL=http://ffmpeg.org/releases/ffmpeg-$FFMPEG_VERSION.tar.gz
+FFMPEG_TARBALL_FILENAME=ffmpeg-$FFMPEG_VERSION.tar.gz
+FFMPEG_TARBALL=$BASE_DIR/$FFMPEG_TARBALL_FILENAME
+FFMPEG_TARBALL_URL=http://ffmpeg.org/releases/$FFMPEG_TARBALL_FILENAME
 if [ ! -e $FFMPEG_TARBALL ]
 then
 	curl -s -L -O $FFMPEG_TARBALL_URL
@@ -125,5 +126,8 @@ tar --strip-components=1 -xf $FFMPEG_TARBALL
 ./configure "${FFMPEG_CONFIGURE_FLAGS[@]}" || exit 1
 make
 make install
-chown $(stat -c '%u:%g' $BASE_DIR) -R $OUTPUT_DIR
 # build
+
+cd $ARTIFACTS_DIR
+tar -czf ffmpeg_${ARCH}_linux.tar.gz $OUTPUT_DIR
+chown $(stat -c '%u:%g' $BASE_DIR) $ffmpeg_${ARCH}_linux.tar.gz
