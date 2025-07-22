@@ -1,0 +1,14 @@
+aac
+aac_latm
+ac3
+adx
+amr
+dca
+flac
+mpegaudio
+mlp
+opus
+sbc
+tak
+vorbis
+xma
