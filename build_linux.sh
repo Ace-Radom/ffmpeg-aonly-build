@@ -20,7 +20,7 @@ fi
 
 FFMPEG_VERSION=7.1.1
 FFMPEG_TARBALL=$BASE_DIR/ffmpeg-$FFMPEG_VERSION.tar.gz
-FFMPEG_TARBALL_URL=http://ffmpeg.org/releases/$FFMPEG_TARBALL
+FFMPEG_TARBALL_URL=http://ffmpeg.org/releases/ffmpeg-$FFMPEG_VERSION.tar.gz
 if [ ! -e $FFMPEG_TARBALL ]
 then
 	curl -s -L -O $FFMPEG_TARBALL_URL
