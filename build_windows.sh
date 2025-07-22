@@ -68,7 +68,7 @@ FFMPEG_CONFIGURE_FLAGS=(
     --arch=$ARCH
     --cross-prefix=$ARCH-w64-mingw32-
 )
-# prepare common configure flags
+# prepare configure flags
 
 FFMPEG_BUILD_DIR=$(mktemp -d -p $BUILD_DIR ffmpeg-build.XXXXXXXX)
 trap 'rm -rf $BUILD_DIR' EXIT
@@ -80,5 +80,5 @@ make install
 # build
 
 cd $ARTIFACTS_DIR
-tar -czf ffmpeg_${ARCH}_win64.tar.gz $OUTPUT_DIR
+tar -czf ffmpeg_${ARCH}_win64.tar.gz $(basename $OUTPUT_DIR)
 chown $(stat -c '%u:%g' $BASE_DIR) $ffmpeg_${ARCH}_win64.tar.gz
