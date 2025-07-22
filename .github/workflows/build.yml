@@ -14,8 +14,10 @@ jobs:
           - arm64
     env:
       ARCH: ${{ matrix.arch }}
+    
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
       - name: Install dependencies
         run: |
           sudo apt-get update -y
@@ -31,4 +33,33 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ffmpeg-linux-${{ env.ARCH }}
-          path: artifacts/
+          path: build/artifacts/
+
+  win64-pkg:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        arch:
+          - x86_64
+    env:
+      ARCH: ${{ matrix.arch }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Install dependencies
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y yasm
+      - name: Install MinGW compiler
+        if: env.ARCH == 'arm64'
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y mingw-w64
+      - name: Build
+        run: ./build_windows.sh
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ffmpeg-linux-${{ env.ARCH }}
+          path: build/artifacts/
